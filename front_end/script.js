@@ -1,3 +1,5 @@
+console.log("LOGIN FUNCTION CALLED");
+
 function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
@@ -10,7 +12,7 @@ function login() {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
-            window.location.replace = ("players.html");
+            window.location.replace("players.html");
         } else {
             document.getElementById("message").innerText = "Invalid username or password";
         }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Management</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+</head>
+<body>
+    <div style="background:#f0f0f0; padding:10px; margin-bottom:20px;">
+    
+</div>
+<div>
+    <h2>Player Management</h2>
+
+    <h3>Add New Player</h3>
+    <input id="name" placeholder="Player Name"><br><br>
+    <input id="role" placeholder="Role (Batsman/Bowler/All-rounder)"><br><br>
+    <input id="base_price" placeholder="Base Price" type="number"><br><br>
+    <button onclick="addPlayer()">Add Player</button>
+
+    <h3>All Players</h3>
+    <input 
+    id="searchBox" 
+    placeholder="Search players by name or role..." 
+    onkeyup="filterPlayers()" 
+    style="width: 300px; padding: 5px; margin-bottom: 15px;">
+
+    <div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Base Price</th>
+                <th>Team</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="playerTable"></tbody>
+    </table>
+</div>
+
+</div>
+    <script src="script.js"></script>
+
+</body>
+</html>
