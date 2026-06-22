@@ -1,10 +1,11 @@
 console.log("LOGIN FUNCTION CALLED");
+const API = "http://127.0.0.1:5000";
 
 function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    fetch("http://127.0.0.1:5000/login", {
+    fetch(`${API}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
@@ -22,4 +23,4 @@ function login() {
         console.error(err);
     });
 }
-const API = "http://127.0.0.1:5000";
+
