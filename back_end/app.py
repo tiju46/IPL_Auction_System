@@ -29,12 +29,22 @@ def get_players():
 
 @app.route("/players", methods=["POST"])
 def add_player():
-    players = load_json("players.json")
-    new_player = request.json
-    new_player["id"] = len(players) + 1
-    players.append(new_player)
-    save_json("players.json", players)
-    return jsonify({"success": True})
+    try:
+        data = request.json
+        if not data:
+            return jsonify({"success": False, "error": "No data provided"}), 400
+        if "name" not in data or "role" not in data or "base_price" not in data:
+            return jsonify({"success": False, "error": "Missing required fields"}), 400
+               
+        players = load_json("players.json")
+        new_player = data
+        print(new_player)
+        new_player["id"] = len(players) + 1
+        players.append(new_player)
+        save_json("players.json", players)
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return jsonify({"success": False,"error": str(e)}), 500
 
 @app.route("/players/<int:id>", methods=["PUT"])
 def update_player(id):
