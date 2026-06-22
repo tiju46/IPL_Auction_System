@@ -23,7 +23,55 @@ def login():
     return jsonify({"success": False}), 401
 
 
+@app.route("/players", methods=["GET"])
+def get_players():
+    return jsonify(load_json("players.json"))
 
+@app.route("/players", methods=["POST"])
+def add_player():
+    players = load_json("players.json")
+    new_player = request.json
+    new_player["id"] = len(players) + 1
+    players.append(new_player)
+    save_json("players.json", players)
+    return jsonify({"success": True})
+
+@app.route("/players/<int:id>", methods=["PUT"])
+def update_player(id):
+    players = load_json("players.json")
+    for p in players:
+        if p["id"] == id:
+            p.update(request.json)
+            save_json("players.json", players)
+            return jsonify({"success": True})
+    return jsonify({"error": "Player not found"}), 404
+
+@app.route("/players/<int:id>", methods=["DELETE"])
+def delete_player(id):
+    players = load_json("players.json")
+    players = [p for p in players if p["id"] != id]
+    save_json("players.json", players)
+    return jsonify({"success": True})
+
+@app.route("/assign", methods=["PUT"])
+def assign_player():
+    data = request.json
+    player_id = data["player_id"]
+    team_id = data["team_id"]
+
+    players = load_json("players.json")
+
+    for p in players:
+        if p["id"] == player_id:
+            p["team_id"] = team_id
+            save_json("players.json", players)
+            return jsonify({"success": True})
+
+    return jsonify({"error": "Player not found"}), 404
+
+@app.route("/teams", methods=["GET"])
+def get_teams():
+    return jsonify(load_json("teams.json"))
 
 if __name__ == "__main__":
    app.run(debug=True)
