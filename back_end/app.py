@@ -37,7 +37,9 @@ def login():
 
 @app.route("/players", methods=["GET"])
 def get_players():
-    return jsonify(load_json("players.json"))
+    players = load_json("players.json")
+    print("DEBUG: PLAYERS LOADED =", players)
+    return jsonify(players)
 
 @app.route("/players", methods=["POST"])
 def add_player():
