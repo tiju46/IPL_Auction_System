@@ -1,5 +1,5 @@
 console.log("LOGIN FUNCTION CALLED");
-const API = "https://ipl-auction-system-front-end-623648546215.europe-west1.run.app";
+const API = "https://ipl-auction-system-623648546215.europe-west1.run.app";
 
 function login() {
     const username = document.getElementById("username").value;
