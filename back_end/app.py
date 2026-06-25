@@ -2,27 +2,27 @@ from flask import Flask, request, jsonify
 import json
 import os
 from flask_cors import CORS
+from google.cloud import storage
 
 app = Flask(__name__)
 CORS(app)
 
-def load_json(filename):
-    tmp_path = f"/tmp/{filename}"
-    if os.path.exists(tmp_path):
-        with open(tmp_path, "r") as f:
-            return json.load(f)
-    else:
-        with open(filename, "r") as f:
-            data = json.load(f)
-        with open(tmp_path, "w") as f:
-            json.dump(data, f, indent=4)
-        return data
+BUCKET_NAME = "ipl-auction-data"   # <--  bucket name
 
+client = storage.Client()
+bucket = client.bucket(BUCKET_NAME)
+
+def load_json(filename):
+    blob = bucket.blob(filename)
+    data = blob.download_as_text()
+    return json.loads(data)
 
 def save_json(filename, data):
-    filepath = f"/tmp/{filename}"
-    with open(filepath, "w") as f:
-        json.dump(data, f, indent=4)
+    blob = bucket.blob(filename)
+    blob.upload_from_string(
+        json.dumps(data, indent=4),
+        content_type="application/json"
+    )
 
 
 @app.route("/login", methods=["POST"])
