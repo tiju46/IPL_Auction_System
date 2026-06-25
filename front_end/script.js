@@ -1,5 +1,5 @@
 console.log("LOGIN FUNCTION CALLED");
-const API = "http://127.0.0.1:5000";
+const API = "https://ipl-auction-system-front-end-623648546215.europe-west1.run.app";
 
 function login() {
     const username = document.getElementById("username").value;
