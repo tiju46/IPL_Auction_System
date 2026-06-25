@@ -7,12 +7,23 @@ app = Flask(__name__)
 CORS(app)
 
 def load_json(filename):
-    with open(filename, "r") as f:
-        return json.load(f)
+    tmp_path = f"/tmp/{filename}"
+    if os.path.exists(tmp_path):
+        with open(tmp_path, "r") as f:
+            return json.load(f)
+    else:
+        with open(filename, "r") as f:
+            data = json.load(f)
+        with open(tmp_path, "w") as f:
+            json.dump(data, f, indent=4)
+        return data
+
 
 def save_json(filename, data):
-    with open(filename, "w") as f:
+    filepath = f"/tmp/{filename}"
+    with open(filepath, "w") as f:
         json.dump(data, f, indent=4)
+
 
 @app.route("/login", methods=["POST"])
 def login():
