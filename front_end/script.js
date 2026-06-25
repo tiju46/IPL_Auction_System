@@ -24,3 +24,82 @@ function login() {
     });
 }
 
+let allPlayers = []; // store players globally
+// ---------------- LOAD PLAYERS ----------------
+function loadPlayers() {
+    fetch(`${API}/players`)
+        .then(res => res.json())
+        .then(players => {
+            allPlayers = players; // save full list
+            displayPlayers(players);
+        });
+}
+function displayPlayers(players) {
+    const table = document.getElementById("playerTable");
+    table.innerHTML = "";
+
+    players.forEach(p => {
+        let roleClass = "role-batsman";
+        if (p.role.toLowerCase().includes("bowl")) roleClass = "role-bowler";
+        if (p.role.toLowerCase().includes("all")) roleClass = "role-allrounder";
+
+        table.innerHTML += `
+            <tr>
+                <td>${p.id}</td>
+
+                <td><input id="name_${p.id}" value="${p.name}"></td>
+
+                <td>
+                    <span class="role-badge ${roleClass}">
+                        ${p.role}
+                    </span>
+                    <input id="role_${p.id}" value="${p.role}" style="display:none;">
+                </td>
+
+                <td><input id="price_${p.id}" value="${p.base_price}"></td>
+
+                <td>${p.team_id ? p.team_id : "None"}</td>
+
+                <td>
+                    <button class="action-btn update" onclick="updatePlayer(${p.id})">✏️</button>
+                    <button class="action-btn delete" onclick="deletePlayer(${p.id})">🗑️</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+
+
+function filterPlayers() {
+    const query = document.getElementById("searchBox").value.toLowerCase();
+
+    const filtered = allPlayers.filter(p =>
+        p.name.toLowerCase().includes(query) ||
+        p.role.toLowerCase().includes(query)
+    );
+
+    displayPlayers(filtered);
+}
+
+// ---------------- ADD PLAYER ----------------
+function addPlayer() {
+    const name = document.getElementById("name").value;
+    const role = document.getElementById("role").value;
+    const base_price = document.getElementById("base_price").value;
+
+    fetch(`${API}/players`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, role, base_price })
+    })
+    .then(res => res.json())
+    .then(() => {
+        loadPlayers();
+        alert("Player added!");
+    })
+    .catch(err => {
+    console.error("API ERROR:", err);
+    alert("Failed to add player. Please check your backend.");
+    });
+}
