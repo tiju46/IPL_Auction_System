@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>IPL Auction – Home Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="login.html">Admin Login</a>
+</div>
+
+<div class="container">
+    <h2 style="text-align: center;"">IPL Auction – Player Showcase</h2>
+    <p style="color:#555;">List of all players were successfully sold out in the auction.</p>
+
+    <!--<input 
+        id="fanSearch" 
+        placeholder="Search players by name or role..." 
+        onkeyup="filterFanPlayers()" 
+        style="width: 300px; padding: 8px; margin-bottom: 15px;"
+    >-->
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Base Price</th>
+                    <th>Team</th>
+                </tr>
+            </thead>
+            <tbody id="fanPlayerTable"></tbody>
+        </table>
+    </div>
+</div>
