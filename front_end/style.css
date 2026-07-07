@@ -74,8 +74,7 @@ table {
     border-collapse: collapse;
     margin-top: 15px;
     border-radius: 8px;
-    overflow: hidden; /* enables rounded corners */
-    table-layout: fixed;
+    overflow: hidden; 
 }
 
 /* Sticky header */
@@ -109,6 +108,10 @@ td {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+td, th {
+    padding: 12px 18px;   /* top/bottom 12px, left/right 18px */
+}
+
 
 
 
