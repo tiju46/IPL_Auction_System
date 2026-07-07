@@ -3,6 +3,8 @@ import json
 import os
 from flask_cors import CORS
 from google.cloud import storage
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 CORS(app)
@@ -27,12 +29,21 @@ def save_json(filename, data):
 
 @app.route("/login", methods=["POST"])
 def login():
-    admin = load_json("admin.json")
     data = request.json
+    username = data.get("username")
+    password = data.get("password")
 
-    if data["username"] == admin["username"] and data["password"] == admin["password"]:
-        return jsonify({"success": True})
+    users = load_json("users.json")
+
+    for u in users:
+        if u["username"] == username:
+            if check_password_hash(u["password"], password):
+                return jsonify({"success": True})
+            else:
+                return jsonify({"success": False}), 401
+
     return jsonify({"success": False}), 401
+
 
 
 @app.route("/players", methods=["GET"])
@@ -96,6 +107,36 @@ def assign_player():
 @app.route("/teams", methods=["GET"])
 def get_teams():
     return jsonify(load_json("teams.json"))
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
+
+    if not username or not password:
+        return jsonify({"success": False, "error": "Missing fields"}), 400
+
+    users = load_json("users.json")
+
+    
+    for u in users:
+        if u["username"] == username:
+            return jsonify({"success": False, "error": "User already exists"}), 409
+
+    
+    hashed = generate_password_hash(password)
+
+    new_user = {
+        "username": username,
+        "password": hashed
+    }
+
+    users.append(new_user)
+    save_json("users.json", users)
+
+    return jsonify({"success": True}), 200
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))

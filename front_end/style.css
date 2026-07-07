@@ -76,6 +76,7 @@ table {
     margin-top: 15px;
     border-radius: 8px;
     overflow: hidden; /* enables rounded corners */
+    table-layout: fixed;
 }
 
 /* Sticky header */
@@ -103,10 +104,14 @@ table tbody tr:hover {
 }
 
 /* Table cells */
-table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+td {
+    max-width: 150px;        /* limit width */
+    overflow-x: auto;        /* horizontal scroll */
+    white-space: nowrap;     /* prevent wrapping */
+    display: block;          /* required for scroll to appear */
+    word-break: break-word;
 }
+
 
 /* ---------- ACTION BUTTON ICONS ---------- */
 .action-btn {

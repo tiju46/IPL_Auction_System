@@ -133,3 +133,27 @@ function addPlayer() {
     alert("Failed to add player. Please check your backend.");
     });
 }
+// ---------------- SIGN UP ----------------
+function signup() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    fetch(`${API}/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("Account created! You can now login.");
+            window.location.replace("login.html");
+        } else {
+            document.getElementById("message").innerText = data.error || "Signup failed";
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        document.getElementById("message").innerText = "Server error";
+    });
+}
