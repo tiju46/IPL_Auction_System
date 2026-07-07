@@ -66,7 +66,6 @@ button:hover {
 /* ---------- TABLE WRAPPER (prevents overflow) ---------- */
 .table-wrapper {
     overflow-x: auto;
-    width: 100%;
 }
 
 /* ---------- TABLE STYLING ---------- */
@@ -105,12 +104,12 @@ table tbody tr:hover {
 
 /* Table cells */
 td {
-    max-width: 150px;        /* limit width */
-    overflow-x: auto;        /* horizontal scroll */
-    white-space: nowrap;     /* prevent wrapping */
-    display: block;          /* required for scroll to appear */
-    word-break: break-word;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
 
 
 /* ---------- ACTION BUTTON ICONS ---------- */
