@@ -58,18 +58,30 @@ def add_player():
         data = request.json
         if not data:
             return jsonify({"success": False, "error": "No data provided"}), 400
-        if "name" not in data or "role" not in data or "base_price" not in data:
+        
+        name = data.get("name")
+        role = data.get("role")
+        base_price = data.get("base_price")
+        image = data.get("image") or "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+
+        if not name or not role or not base_price:
             return jsonify({"success": False, "error": "Missing required fields"}), 400
-               
+
         players = load_json("players.json")
-        new_player = data
-        print(new_player)
-        new_player["id"] = len(players) + 1
+
+        new_player = {
+            "id": len(players) + 1,
+            "name": name,
+            "role": role,
+            "base_price": base_price,
+            "team": None,
+            "image": image
+        }
         players.append(new_player)
         save_json("players.json", players)
         return jsonify({"success": True}), 200
     except Exception as e:
-        return jsonify({"success": False,"error": str(e)}), 500
+        return jsonify({"success": False, "error": str(e)}), 500
 
 @app.route("/players/<int:id>", methods=["PUT"])
 def update_player(id):

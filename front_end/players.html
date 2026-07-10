@@ -21,13 +21,15 @@
     <input id="name" placeholder="Player Name"><br><br>
     <input id="role" placeholder="Role (Batsman/Bowler/All-rounder)"><br><br>
     <input id="base_price" placeholder="Base Price" type="number"><br><br>
+    <label>Player Image URL:</label>
+    <input id="playerImage" placeholder="Enter image URL (optional)">
     <button onclick="addPlayer()">Add Player</button>
     <hr>
     <h3>All Players</h3>
     <input 
     id="searchBox" 
     placeholder="Search players by name or role..." 
-    onkeyup="filterPlayers()" 
+    onkeyup="filterPlayers('player')" 
     style="width: 300px; padding: 5px; margin-bottom: 15px;">
 
     <div class="table-wrapper">
@@ -44,6 +46,10 @@
         </thead>
         <tbody id="playerTable"></tbody>
     </table>
+</div>
+<div id="imageModal" class="image-modal">
+    <span class="close-btn" onclick="closeImageModal()">×</span>
+    <img id="modalImage" class="modal-content">
 </div>
 </div>
     <script src="script.js"></script>

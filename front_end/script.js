@@ -50,25 +50,30 @@ function displayPlayers(players, value) {
                 <tr>
                     <td>${p.id}</td>
 
-                    <td><input id="name_${p.id}" value="${p.name}"></td>
-
-                    <td>
-                        <span class="role-badge ${roleClass}">
-                        ${p.role}
-                        </span>
-                        <input id="role_${p.id}" value="${p.role}" style="display:none;">
+                    <td class="player-cell">
+                    <img class="player-img" src="${p.image || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'}"
+                    onclick="openImageModal('${p.image}')">
+                    <input class="player-cellinput" id="name_${p.id}" value="${p.name}">
                     </td>
 
-                    <td><input id="price_${p.id}" value="${p.base_price}"></td>
+                    <td>
+                    <span class="role-badge ${roleClass}">
+                    ${p.role}
+                    </span>
+                    <input id="role_${p.id}" value="${p.role}" style="display:none;">
+                    </td>
+
+                    <td><input class="price-input" id="price_${p.id}" value="${p.base_price}"></td>
 
                     <td>${p.team_id ? p.team_id : "None"}</td>
 
                     <td>
-                        <button class="action-btn update" onclick="updatePlayer(${p.id})">✏️</button>
-                        <button class="action-btn delete" onclick="deletePlayer(${p.id})">🗑️</button>
+                    <button class="action-btn update" onclick="updatePlayer(${p.id})">✏️</button>
+                    <button class="action-btn delete" onclick="deletePlayer(${p.id})">🗑️</button>
                     </td>
                 </tr>
             `;
+
         });
     }
     else if (value == "home") {
@@ -80,28 +85,35 @@ function displayPlayers(players, value) {
         if (p.role.toLowerCase().includes("all")) roleClass = "role-allrounder";
 
         table1.innerHTML += `
-            <tr>
-                <td>${p.id}</td>
+                <tr>
+                    <td>${p.id}</td>
 
-                <td><input id="name_${p.id}" value="${p.name}"></td>
+                    <td class="player-cell">
+                    <img class="player-img" src="${p.image || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'}"
+                    onclick="openImageModal('${p.image}')">
+                    <br>
+                    <span class="player-name">${p.name}</span>
 
-                <td>
+                    </td>
+
+                    <td>
                     <span class="role-badge ${roleClass}">
-                        ${p.role}
+                    ${p.role}
                     </span>
                     <input id="role_${p.id}" value="${p.role}" style="display:none;">
-                </td>
+                    </td>
 
-                <td><input id="price_${p.id}" value="${p.base_price}"></td>
+                    <td><span class="price-input">${p.base_price}</span></td>
+                    
 
-                <td>${p.team_id ? p.team_id : "None"}</td>
-            </tr>
+                    <td>${p.team_id ? p.team_id : "None"}</td>
+                </tr>
         `;
     });
 
     }
 }
-function filterPlayers() {
+function filterPlayers(value) {
     const query = document.getElementById("searchBox").value.toLowerCase();
     console.log("Query:", query);
     console.log("All players:", allPlayers);
@@ -111,7 +123,7 @@ function filterPlayers() {
     );
 
     console.log("Filtered players:", filtered);
-    displayPlayers(filtered, "player");
+    displayPlayers(filtered, value);
 }
 
 // ---------------- ADD PLAYER ----------------
@@ -119,16 +131,21 @@ function addPlayer() {
     const name = document.getElementById("name").value;
     const role = document.getElementById("role").value;
     const base_price = document.getElementById("base_price").value;
+    const image = document.getElementById("playerImage").value;
 
     fetch(`${API}/players`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, role, base_price })
+        body: JSON.stringify({ name, role, base_price, image })
     })
     .then(res => res.json())
     .then(() => {
         loadPlayers();
         alert("Player added!");
+        loadPlayers();             
+        setTimeout(() => {
+            window.location.reload();   
+        }, 200);
     })
     .catch(err => {
     console.error("API ERROR:", err);
@@ -186,10 +203,22 @@ function deletePlayer(id) {
     .then(res => res.json())
     .then(() => {
         alert("Player deleted!");
-        loadPlayers();
+        loadPlayers();              // refresh table
+        setTimeout(() => {
+            window.location.reload();   // fallback refresh
+        }, 200);
     });
 }
 
 if (window.location.pathname.includes("players.html")) {
     loadPlayers();
+}
+
+function openImageModal(src) {
+    document.getElementById("modalImage").src = src;
+    document.getElementById("imageModal").style.display = "block";
+}
+
+function closeImageModal() {
+    document.getElementById("imageModal").style.display = "none";
 }

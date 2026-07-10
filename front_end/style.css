@@ -187,3 +187,68 @@ td, th {
     border-radius: 8px;
     border: 1px solid #e0e0e0;
 }
+.image-modal {
+    display: none; 
+    position: fixed;
+    z-index: 9999;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.player-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-img {
+    width: 60px;          /* smaller so name gets space */
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.player-cellinput {
+    flex: 1;              /* take remaining space */
+    min-width: 200px;     /* ensure name is visible */
+    height: 26px;
+    padding: 4px 6px;
+    box-sizing: border-box;
+}
+
+
+.price-input {
+    width: 100px;        /* reduce length */
+    height: 28px;        /* match name box height */
+    padding: 4px 6px;
+    box-sizing: border-box;
+}
+
+.player-name {
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;     /* prevents name from breaking */
+}
+

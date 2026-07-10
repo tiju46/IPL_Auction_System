@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>IPL Auction – Home Page</title>
+    <title>IPL Auction Tracker – Home Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,12 +16,11 @@
     <h2 style="text-align: center;"">IPL Auction – Player Showcase</h2>
     <p style="color:#555;">List of all players were successfully sold out in the auction.</p>
 
-    <!--<input 
-        id="fanSearch" 
+    <input 
+        id="searchBox" 
         placeholder="Search players by name or role..." 
-        onkeyup="filterFanPlayers()" 
-        style="width: 300px; padding: 8px; margin-bottom: 15px;"
-    >-->
+        onkeyup="filterPlayers('home')" 
+        style="width: 300px; padding: 8px; margin-bottom: 15px;">
 
     <div class="table-wrapper">
         <table>
@@ -37,6 +36,10 @@
             <tbody id="HomeplayerTable"></tbody>
         </table>
     </div>   
+</div>
+<div id="imageModal" class="image-modal">
+    <span class="close-btn" onclick="closeImageModal()">×</span>
+    <img id="modalImage" class="modal-content">
 </div>
 <script src="script.js"></script> 
 </body>
