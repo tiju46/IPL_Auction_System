@@ -91,7 +91,7 @@ function displayPlayers(players, value) {
                     <td class="player-cell">
                     <img class="player-img" src="${p.image || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'}"
                     onclick="openImageModal('${p.image}')">
-                    <br>
+                    
                     <span class="player-name">${p.name}</span>
 
                     </td>

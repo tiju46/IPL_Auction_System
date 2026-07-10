@@ -247,8 +247,13 @@ td, th {
 }
 
 .player-name {
+    display: inline-block;
     font-size: 16px;
     font-weight: 500;
-    white-space: nowrap;     /* prevents name from breaking */
+    padding: 4px 6px;
+    white-space: nowrap;
+    max-width: 300px;     /* optional: prevents overflow */
+    overflow: hidden;     /* optional: hides extra text */
+    text-overflow: ellipsis;
 }
 
