@@ -157,3 +157,33 @@ function signup() {
         document.getElementById("message").innerText = "Server error";
     });
 }
+
+// ---------------- UPDATE PLAYER ----------------
+function updatePlayer(id) {
+    const name = document.getElementById(`name_${id}`).value;
+    const role = document.getElementById(`role_${id}`).value;
+    const base_price = document.getElementById(`price_${id}`).value;
+
+    fetch(`${API}/players/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, role, base_price })
+    })
+    .then(res => res.json())
+    .then(() => {
+        alert("Player updated!");
+        loadPlayers();
+    });
+}
+
+// ---------------- DELETE PLAYER ----------------
+function deletePlayer(id) {
+    fetch(`${API}/players/${id}`, {
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(() => {
+        alert("Player deleted!");
+        loadPlayers();
+    });
+}
