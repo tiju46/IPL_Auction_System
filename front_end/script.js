@@ -103,13 +103,15 @@ function displayPlayers(players, value) {
 }
 function filterPlayers() {
     const query = document.getElementById("searchBox").value.toLowerCase();
-
+    console.log("Query:", query);
+    console.log("All players:", allPlayers);
     const filtered = allPlayers.filter(p =>
         p.name.toLowerCase().includes(query) ||
         p.role.toLowerCase().includes(query)
     );
 
-    displayPlayers(filtered);
+    console.log("Filtered players:", filtered);
+    displayPlayers(filtered, "player");
 }
 
 // ---------------- ADD PLAYER ----------------
@@ -186,4 +188,8 @@ function deletePlayer(id) {
         alert("Player deleted!");
         loadPlayers();
     });
+}
+
+if (window.location.pathname.includes("players.html")) {
+    loadPlayers();
 }
