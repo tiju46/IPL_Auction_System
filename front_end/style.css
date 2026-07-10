@@ -8,7 +8,7 @@ body {
 
 /* ---------- NAVBAR ---------- */
 .navbar {
-    background: #1e88e5;
+    background: #08f308;
     padding: 12px 20px;
     color: white;
     display: flex;          
@@ -48,8 +48,17 @@ body {
 }
 
 /* ---------- HEADINGS ---------- */
-h2, h3 {
-    color: #333;
+h3 {
+    color: #ef6c00;
+
+}
+h2 {
+     text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    color: #ef6c00;
 }
 
 /* ---------- INPUTS ---------- */
@@ -63,7 +72,7 @@ input, select {
 
 /* ---------- BUTTONS ---------- */
 button {
-    background: #1e88e5;
+    background: #08f308;
     color: white;
     padding: 8px 15px;
     border: none;
@@ -72,7 +81,7 @@ button {
 }
 
 button:hover {
-    background: #1565c0;
+    background: #de4402;
 }
 
 /* ---------- TABLE WRAPPER (prevents overflow) ---------- */
@@ -93,7 +102,7 @@ table {
 table thead th {
     position: sticky;
     top: 0;
-    background: #1e88e5;
+    background: #ef6c00;
     color: white;
     padding: 10px;
     z-index: 2;
@@ -137,11 +146,11 @@ td, th {
 }
 
 .action-btn.update {
-    color: #2e7d32; /* green */
+    color: #ef6c00; /* green */
 }
 
 .action-btn.delete {
-    color: #c62828; /* red */
+    color: #ef6c00; /* red */
 }
 
 .action-btn:hover {
@@ -158,13 +167,23 @@ td, th {
 }
 
 .role-batsman {
-    background: #2e7d32; /* green */
+    background: #08f308; /* green */
 }
 
 .role-bowler {
-    background: #1565c0; /* blue */
+    background: #08f308; /* blue */
 }
 
 .role-allrounder {
-    background: #ef6c00; /* orange */
+    background: #08f308; /* orange */
+}
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    font-size: 15px;
+    color: #444;
+    background: #f5faff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
 }

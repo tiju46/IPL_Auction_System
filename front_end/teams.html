@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team Assignment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<div class="navbar">   
+        <a href="index.html">Home</a>
+        <a href="players.html">Players</a>
+        <a href="teams.html">Teams</a>
+        <span class="spacer"></span>
+        <a href="login.html" class="logout">Logout</a>
+</div>
+<div class="container">
+    <h2>Team Assignment</h2>
+
+    <h3>Assign Player to Team</h3>
+
+    <label>Select Player:</label><br>
+    <select id="playerSelect"></select><br><br>
+
+    <label>Select Team:</label><br>
+    <select id="teamSelect"></select><br><br>
+
+    <button onclick="assignTeam()">Assign</button>
+
+    <hr>
+
+    <h3>All Players with Teams</h3>
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Base Price</th>
+                <th>Team</th>
+            </tr>
+        </thead>
+        <tbody id="teamTable"></tbody>
+    </table>
+
+    <script src="script.js"></script>
+</div>
+</body>
+<footer class="footer">
+    © 2026 All Rights Reserved — Tiju Thomas
+</footer>
+</html>
