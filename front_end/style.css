@@ -11,6 +11,12 @@ body {
     background: #1e88e5;
     padding: 12px 20px;
     color: white;
+    display: flex;          
+    align-items: center;
+}
+
+.navbar .spacer {
+    flex: 1;              
 }
 
 .navbar a {
@@ -22,6 +28,12 @@ body {
 
 .navbar a:hover {
     text-decoration: underline;
+}
+
+.navbar a.logout {
+    margin-left: auto;      
+    font-weight: bold;
+    padding-right: 10px;
 }
 
 /* ---------- PAGE CONTAINER ---------- */
