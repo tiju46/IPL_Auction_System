@@ -37,6 +37,7 @@ function loadPlayers(value) {
 function displayPlayers(players, value) {
     const table = document.getElementById("playerTable");
     const table1 = document.getElementById("HomeplayerTable");
+    const table2 = document.getElementById("teamTable");
     //console.log(table.id);
     //console.log(value);
     if (value == "player") {       
@@ -45,28 +46,22 @@ function displayPlayers(players, value) {
             let roleClass = "role-batsman";
             if (p.role.toLowerCase().includes("bowl")) roleClass = "role-bowler";
             if (p.role.toLowerCase().includes("all")) roleClass = "role-allrounder";
-
             table.innerHTML += `
                 <tr>
                     <td>${p.id}</td>
-
                     <td class="player-cell">
                     <img class="player-img" src="${p.image || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'}"
                     onclick="openImageModal('${p.image}')">
                     <input class="player-cellinput" id="name_${p.id}" value="${p.name}">
                     </td>
-
                     <td>
                     <span class="role-badge ${roleClass}">
                     ${p.role}
                     </span>
                     <input id="role_${p.id}" value="${p.role}" style="display:none;">
                     </td>
-
                     <td><input class="price-input" id="price_${p.id}" value="${p.base_price}"></td>
-
                     <td>${p.team_id ? p.team_id : "None"}</td>
-
                     <td>
                     <button class="action-btn update" onclick="updatePlayer(${p.id})">✏️</button>
                     <button class="action-btn delete" onclick="deletePlayer(${p.id})">🗑️</button>
@@ -83,34 +78,50 @@ function displayPlayers(players, value) {
         let roleClass = "role-batsman";
         if (p.role.toLowerCase().includes("bowl")) roleClass = "role-bowler";
         if (p.role.toLowerCase().includes("all")) roleClass = "role-allrounder";
-
         table1.innerHTML += `
                 <tr>
                     <td>${p.id}</td>
-
                     <td class="player-cell">
                     <img class="player-img" src="${p.image || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'}"
-                    onclick="openImageModal('${p.image}')">
-                    
+                    onclick="openImageModal('${p.image}')">            
                     <span class="player-name">${p.name}</span>
-
                     </td>
-
                     <td>
                     <span class="role-badge ${roleClass}">
                     ${p.role}
                     </span>
                     <input id="role_${p.id}" value="${p.role}" style="display:none;">
                     </td>
-
                     <td><span class="price-input">${p.base_price}</span></td>
-                    
-
                     <td>${p.team_id ? p.team_id : "None"}</td>
                 </tr>
         `;
     });
+    }
+    else if (value == "teams") {
+        console.log(table2.id);
+        table2.innerHTML = "";
+        players.forEach(p => {
+        let roleClass = "role-batsman";
+        if (p.role.toLowerCase().includes("bowl")) roleClass = "role-bowler";
+        if (p.role.toLowerCase().includes("all")) roleClass = "role-allrounder";
+        table2.innerHTML += `
+                <tr>
+                    <td>${p.id}</td>
+                    <span class="player-name">${p.name}</span>
+                    </td>
+                    <td>
+                    <span class="role-badge ${roleClass}">
+                    ${p.role}
+                    </span>
+                    <input id="role_${p.id}" value="${p.role}" style="display:none;">
+                    </td>
+                    <td><span class="price-input">${p.base_price}</span></td>       
+                    <td>${p.team_id ? p.team_id : "None"}</td>
+                </tr>
+        `;
 
+    });
     }
 }
 function filterPlayers(value) {
@@ -244,7 +255,8 @@ function loadTeamAssignment() {
             return fetch(`${API}/players`);
         })
         .then(res => res.json())
-        .then(players => {
+        .then(players => {          
+            allPlayers = players;
             const playerSelect = document.getElementById("playerSelect");
             const teamTable = document.getElementById("teamTable");
 
@@ -274,16 +286,16 @@ function loadTeamAssignment() {
 
 
     // Load teams
-    fetch(`${API}/teams`)
-        .then(res => res.json())
-        .then(teams => {
-            const teamSelect = document.getElementById("teamSelect");
-            teamSelect.innerHTML = "";
+   // fetch(`${API}/teams`)
+    //    .then(res => res.json())
+  //      .then(teams => {
+       //     const teamSelect = document.getElementById("teamSelect");
+       //     teamSelect.innerHTML = "";
 
-            teams.forEach(t => {
-                teamSelect.innerHTML += `<option value="${t.id}">${t.team_name}</option>`;
-            });
-        });
+      //     teams.forEach(t => {
+          //      teamSelect.innerHTML += `<option value="${t.id}">${t.team_name}</option>`;
+         //  });
+    //    });
 }
 
 // Auto-load when teams.html opens
