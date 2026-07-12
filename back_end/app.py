@@ -128,10 +128,8 @@ def signup():
     password = data.get("password")
     name = data.get("name")
     email = data.get("email")
-
     if not username or not password:
         return jsonify({"success": False, "error": "Missing fields"}), 400
-
     users = load_json("users.json")
 
     
@@ -147,7 +145,7 @@ def signup():
         "name": name,
         "email": email,
         "role": "Administrator",
-        "last_login": datetime.datetime.now(),
+        "last_login": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "avatar": "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     }
 
