@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, request, jsonify
 import json
 import os
@@ -125,6 +126,8 @@ def signup():
     data = request.json
     username = data.get("username")
     password = data.get("password")
+    name = data.get("name")
+    email = data.get("email")
 
     if not username or not password:
         return jsonify({"success": False, "error": "Missing fields"}), 400
@@ -135,13 +138,17 @@ def signup():
     for u in users:
         if u["username"] == username:
             return jsonify({"success": False, "error": "User already exists"}), 409
-
-    
+   
     hashed = generate_password_hash(password)
 
     new_user = {
         "username": username,
-        "password": hashed
+        "password": hashed,
+        "name": name,
+        "email": email,
+        "role": "Administrator",
+        "last_login": datetime.datetime.now(),
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     }
 
     users.append(new_user)
@@ -151,7 +158,7 @@ def signup():
 
 @app.route("/admin/profile", methods=['GET'])
 def admin_profile():
-    admin_data = load_json("admin.json")
+    admin_data = load_json("users.json")
     return jsonify(admin_data)
 
 

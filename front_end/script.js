@@ -161,11 +161,13 @@ function addPlayer() {
 function signup() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
 
     fetch(`${API}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password, name, email })
     })
     .then(res => res.json())
     .then(data => {
@@ -292,7 +294,6 @@ function loadAdminProfile() {
             document.getElementById("adminEmail").innerText = admin.email;
             document.getElementById("adminRole").innerText = admin.role;
             document.getElementById("adminLastLogin").innerText = admin.last_login;
-            //document.getElementById("adminAvatar").src = admin.avatar;
         })
         .catch(err => console.error("Failed to load admin profile:", err));
 }
