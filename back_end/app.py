@@ -149,6 +149,11 @@ def signup():
 
     return jsonify({"success": True}), 200
 
+@app.route("/admin/profile", methods=['GET'])
+def admin_profile():
+    admin_data = load_json("admin.json")
+    return jsonify(admin_data)
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))

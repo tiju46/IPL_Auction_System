@@ -278,18 +278,28 @@ function loadTeamAssignment() {
             });
         });
 
+    }
 
-    // Load teams
-   // fetch(`${API}/teams`)
-    //    .then(res => res.json())
-  //      .then(teams => {
-       //     const teamSelect = document.getElementById("teamSelect");
-       //     teamSelect.innerHTML = "";
 
-      //     teams.forEach(t => {
-          //      teamSelect.innerHTML += `<option value="${t.id}">${t.team_name}</option>`;
-         //  });
-    //    });
+function loadAdminProfile() {
+    fetch(`${API}/admin/profile`)
+        .then(res => res.json())
+        .then(admin => {
+            
+            console.log("DEBUG: Admin Data Loaded =", admin)
+            document.getElementById("adminName").innerText = admin.name;
+            document.getElementById("adminUsername").innerText = admin.username;
+            document.getElementById("adminEmail").innerText = admin.email;
+            document.getElementById("adminRole").innerText = admin.role;
+            document.getElementById("adminLastLogin").innerText = admin.last_login;
+            //document.getElementById("adminAvatar").src = admin.avatar;
+        })
+        .catch(err => console.error("Failed to load admin profile:", err));
+}
+
+
+if (window.location.pathname.includes("admin.html")) {
+    loadAdminProfile();
 }
 
 // Auto-load when teams.html opens
