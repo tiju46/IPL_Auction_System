@@ -258,3 +258,51 @@ td, th {
     text-overflow: ellipsis;
 }
 
+.admin-profile h2 {
+    margin-bottom: 20px;
+}
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.admin-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    background: #007bff;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.change-password-btn {
+    background: #28a745;
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
