@@ -222,3 +222,71 @@ function openImageModal(src) {
 function closeImageModal() {
     document.getElementById("imageModal").style.display = "none";
 }
+
+// ---------------- LOAD TEAMS + PLAYERS FOR ASSIGNMENT ----------------
+function loadTeamAssignment() {
+    let teamsList = [];
+
+    // Load teams first
+    fetch(`${API}/teams`)
+        .then(res => res.json())
+        .then(teams => {
+            teamsList = teams;
+
+            // Populate team dropdown
+            const teamSelect = document.getElementById("teamSelect");
+            teamSelect.innerHTML = "";
+            teams.forEach(t => {
+                teamSelect.innerHTML += `<option value="${t.id}">${t.team_name}</option>`;
+            });
+
+            // Now load players
+            return fetch(`${API}/players`);
+        })
+        .then(res => res.json())
+        .then(players => {
+            const playerSelect = document.getElementById("playerSelect");
+            const teamTable = document.getElementById("teamTable");
+
+            playerSelect.innerHTML = "";
+            teamTable.innerHTML = "";
+
+            players.forEach(p => {
+                // Find team name
+                const team = teamsList.find(t => t.id === p.team_id);
+                const teamName = team ? team.team_name : "None";
+
+                // Fill dropdown
+                playerSelect.innerHTML += `<option value="${p.id}">${p.name}</option>`;
+
+                // Fill table
+                teamTable.innerHTML += `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.name}</td>
+                        <td>${p.role}</td>
+                        <td>${p.base_price}</td>
+                        <td>${teamName}</td>
+                    </tr>
+                `;
+            });
+        });
+
+
+    // Load teams
+    fetch(`${API}/teams`)
+        .then(res => res.json())
+        .then(teams => {
+            const teamSelect = document.getElementById("teamSelect");
+            teamSelect.innerHTML = "";
+
+            teams.forEach(t => {
+                teamSelect.innerHTML += `<option value="${t.id}">${t.team_name}</option>`;
+            });
+        });
+}
+
+// Auto-load when teams.html opens
+if (window.location.pathname.includes("teams.html")) {
+    loadTeamAssignment();
+}
