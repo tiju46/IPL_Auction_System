@@ -108,16 +108,10 @@ function displayPlayers(players, value) {
         table2.innerHTML += `
                 <tr>
                     <td>${p.id}</td>
-                    <span class="player-name">${p.name}</span>
-                    </td>
-                    <td>
-                    <span class="role-badge ${roleClass}">
-                    ${p.role}
-                    </span>
-                    <input id="role_${p.id}" value="${p.role}" style="display:none;">
-                    </td>
-                    <td><span class="price-input">${p.base_price}</span></td>       
-                    <td>${p.team_id ? p.team_id : "None"}</td>
+                    <td>${p.name}</td>
+                    <td>${p.role}</td>
+                    <td>${p.base_price}</td>
+                    <td>${p.team_id}</td>
                 </tr>
         `;
 
