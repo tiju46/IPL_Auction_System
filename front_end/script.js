@@ -13,6 +13,7 @@ function login() {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
+            localStorage.setItem("loggedInUser", username);
             window.location.replace("players.html");
         } else {
             document.getElementById("message").innerText = "Invalid username or password";
@@ -284,11 +285,20 @@ function loadTeamAssignment() {
 
 
 function loadAdminProfile() {
-    fetch(`${API}/admin/profile`)
+    const username = localStorage.getItem("loggedInUser");
+    if (!username) {
+        window.location.replace("login.html");
+        return;
+    }
+    fetch(`${API}/admin/profile?username=${username}`)
         .then(res => res.json())
         .then(admin => {
             
             console.log("DEBUG: Admin Data Loaded =", admin)
+            if (admin.error) {
+                console.error(admin.error);
+                return;
+            }
             document.getElementById("adminName").innerText = admin.name;
             document.getElementById("adminUsername").innerText = admin.username;
             document.getElementById("adminEmail").innerText = admin.email;

@@ -156,8 +156,15 @@ def signup():
 
 @app.route("/admin/profile", methods=['GET'])
 def admin_profile():
+    target_username = request.args.get('username')
+    if not target_username:
+        return jsonify({"error": "Username parameter is required"}), 400
     admin_data = load_json("users.json")
-    return jsonify(admin_data)
+    current_user = next((u for u in admin_data if u.get("username") == target_username), None)
+    if current_user:
+        return jsonify(current_user), 200
+    else:
+        return jsonify({"error": f"User '{target_username}' not found"}), 404
 
 
 if __name__ == "__main__":
