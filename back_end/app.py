@@ -138,14 +138,14 @@ def signup():
             return jsonify({"success": False, "error": "User already exists"}), 409
    
     hashed = generate_password_hash(password)
-
+    time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     new_user = {
         "username": username,
         "password": hashed,
         "name": name,
         "email": email,
         "role": "Administrator",
-        "last_login": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "last_login": time,
         "avatar": "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     }
 
