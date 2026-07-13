@@ -166,6 +166,27 @@ def admin_profile():
     else:
         return jsonify({"error": f"User '{target_username}' not found"}), 404
 
+@app.route("/change-password", methods=["POST"])
+def change_password():
+    data = request.json
+    username = data.get("username")
+    current_password = data.get("currentPassword")
+    new_password = data.get("newPassword")
+
+    if not username or not current_password or not new_password:
+        return jsonify({"success": False, "error": "Missing required fields"}), 400
+    users = load_json("users.json")
+    user_idx = next((index for (index, u) in enumerate(users) if u.get("username") == username), None)
+    if user_idx is None:
+        return jsonify({"success": False, "error": "User session not found"}), 404
+
+    if not check_password_hash(users[user_idx]["password"], current_password):
+        return jsonify({"success": False, "error": "Incorrect current password"}), 401
+
+    users[user_idx]["password"] = generate_password_hash(new_password)
+    save_json("users.json", users)
+
+    return jsonify({"success": True}), 200
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))

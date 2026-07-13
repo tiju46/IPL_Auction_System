@@ -36,8 +36,29 @@
         <a href="teams.html" class="action-btn">Manage Teams</a>
         <a href="assign.html" class="action-btn">Assign Players</a>
     </div>
-
-    <button class="change-password-btn">Change Password</button>
+    <button class="change-password-btn" id="changePasswordBtn" onclick="openPasswordModal()">Change Password</button>
+<div id="passwordModal" class="modal-backdrop">
+    <div class="modal-content">
+        <h3>Change Password</h3>    
+        <div class="form-group">
+            <label for="currentPassword">Current Password:</label>
+            <input type="password" id="currentPassword" required>
+        </div>   
+        <div class="form-group">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" required>
+        </div>      
+        <div class="form-group">
+            <label for="confirmPassword">Confirm New Password:</label>
+            <input type="password" id="confirmPassword" required>
+        </div>      
+        <p id="modalMessage" class="error-text"></p>     
+        <div class="modal-actions">
+            <button onclick="submitPasswordChange()" class="btn-submit">Update</button>
+            <button onclick="closePasswordModal()" class="btn-cancel">Cancel</button>
+        </div>
+    </div>
+</div>
 </div>
 <script src="script.js"></script>
 

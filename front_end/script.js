@@ -317,3 +317,51 @@ if (window.location.pathname.includes("admin.html")) {
 if (window.location.pathname.includes("teams.html")) {
     loadTeamAssignment();
 }
+function openPasswordModal() {
+    document.getElementById("passwordModal").style.display = "block";
+    document.getElementById("modalMessage").innerText = "";
+}
+
+function closePasswordModal() {
+    document.getElementById("passwordModal").style.display = "none";
+    document.getElementById("currentPassword").value = "";
+    document.getElementById("newPassword").value = "";
+    document.getElementById("confirmPassword").value = "";
+}
+
+function submitPasswordChange() {
+    const username = localStorage.getItem("loggedInUser");
+    const currentPassword = document.getElementById("currentPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const messageEl = document.getElementById("modalMessage");
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+        messageEl.innerText = "All fields are required.";
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        messageEl.innerText = "New passwords do not match.";
+        return;
+    }
+
+    fetch(`${API}/change-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, currentPassword, newPassword })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("Password updated successfully!");
+            closePasswordModal();
+        } else {
+            messageEl.innerText = data.error || "Failed to update password.";
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        messageEl.innerText = "Server error occurred.";
+    });
+}
