@@ -41,6 +41,7 @@ The project uses:
 - Database: Google Cloud Storage (JSON files)  
 - Hosting: Google Cloud Run  
 
+Live Frontend: https://ipl-auction-system-front-end-623648546215.europe-west1.run.app/index.html
 ---
 
 # 2. System Architecture
@@ -213,4 +214,17 @@ A bucket named ipl-auction-data is used for persistent storage.
 Data Flow: The backend calls load_json() to fetch a file as a string, edits the parsed array, and uses save_json() to upload the updated string back to the bucket.
 
 Google Cloud Run Deployment
-The services are containerized via Docker and deployed using Google Cloud Run:
+The services are containerized via Docker and deployed using Google Cloud Run
+
+
+7. References
+Flask API Routing: Flask Framework Documentation
+
+Database Persistency Mocking: Built utilizing the Python unittest.mock Library to decouple cloud services during test execution.
+
+Secure Hashing Framework: Configured according to security guidelines in Werkzeug Security Utilities.
+-https://docs.python.org/3/library/unittest.html
+-https://docs.python.org/3/library/unittest.mock.html
+-https://stackoverflow.com/questions/64273301/python-flask-change-password-login-form
+-https://javascript.info/localstorage
+-https://stackoverflow.com/questions/14220321/how-to-return-the-response-from-an-asynchronous-call
