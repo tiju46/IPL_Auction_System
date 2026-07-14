@@ -19,9 +19,8 @@ The system includes user authentication, admin management tools, player CRUD ope
    - Teams Page  
 4. Backend Architecture  
 5. JSON Database Structure  
-6. Cloud Deployment (Cloud Run + Cloud Storage)  
-7. Troubleshooting  
-8. References  
+6. Cloud Deployment (Cloud Run + Cloud Storage)   
+7. References  
 
 ---
 
@@ -127,3 +126,91 @@ Allows new users to register.
   "avatar": "default avatar URL"
 }
 
+3.4 Admin Profile Page — admin.html
+This console allows registered administrators to view and manage their personal session details.
+
+Features:
+Dynamically retrieves user details from /admin/profile?username=<username>
+
+Displays details like user name, email, account role, and last login time
+
+Provides a link to the password management module
+
+
+3.5 Change Password Page
+Enables verified users to rotate credentials securely.
+
+Workflow:
+User inputs username, currentPassword, and newPassword
+
+Frontend issues a POST request to /change-password
+
+Backend retrieves the user data array, validates the old password using check_password_hash, and generates a secure update using generate_password_hash
+
+On verification, the JSON database saves the transaction and responds with {"success": true}
+
+3.6 Players Page (Auction Hub) — players.html
+The operational dashboard where admins view and manage the current auction pool.
+
+Features:
+Grabs full player list via GET /players
+
+Integrates action toggles (Edit, Delete, Assign) next to each player profile card
+
+Strictly protected via frontend logic checking for authentication tokens/sessions
+
+3.7 Add / Edit / Delete Player
+Admins can perform full CRUD operations on players using interactive HTML modal forms on players.html.
+
+Operations:
+Add Player: Sends POST /players with player fields. If an image is omitted, a placeholder image is assigned automatically.
+
+Edit Player: Sends PUT /players/<id> with modified entries (e.g., updating base price).
+
+Delete Player: Sends DELETE /players/<id> to cleanly erase player parameters from the database.
+
+3.8 Assign Player to Team
+This tool links a drafted player profile to an active IPL franchise.
+
+Workflow:
+Admin clicks Assign on a player's card, triggering a modal dropdown populated with teams retrieved from GET /teams
+
+Selecting a franchise and saving fires a PUT /assign request payload to the backend
+
+Backend matches the player ID, updates "team_id" inside the array, saves the updated database, and updates the UI state
+
+3.9 Teams Page — teams.html
+Displays the active list of franchises and their squads.
+
+Features:
+Pulls team list from GET /teams
+
+Groups drafted players dynamically under their respective franchise cards
+
+Helps admins track which franchise still has budget and slots available
+
+4. Backend Architecture
+The backend is built as a RESTful Python Flask API server. It manages data routing, authentication security, and remote database transactions.
+
+Core Modules:
+app.py: Houses endpoint routings, input validations, and cloud stream handlers.
+
+werkzeug.security: Protects passwords using SHA256 password-hashing.
+
+flask_cors (CORS): Prevents cross-origin blocking between the frontend pages and the deployed API service.
+
+google.cloud.storage: Reads and writes database files to Google Cloud Storage.
+
+5. JSON Database Structure
+Data is stored as standardized JSON arrays of objects.
+
+6. Cloud Deployment (Cloud Run + Cloud Storage)
+The application is deployed on Google Cloud to ensure scale, stability, and high availability.
+
+Google Cloud Storage (GCS)
+A bucket named ipl-auction-data is used for persistent storage.
+
+Data Flow: The backend calls load_json() to fetch a file as a string, edits the parsed array, and uses save_json() to upload the updated string back to the bucket.
+
+Google Cloud Run Deployment
+The services are containerized via Docker and deployed using Google Cloud Run:

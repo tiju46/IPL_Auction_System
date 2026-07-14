@@ -365,3 +365,20 @@ function submitPasswordChange() {
         messageEl.innerText = "Server error occurred.";
     });
 }
+
+// ---------------- ASSIGN PLAYER TO TEAM ----------------
+function assignTeam() {
+    const player_id = parseInt(document.getElementById("playerSelect").value);
+    const team_id = parseInt(document.getElementById("teamSelect").value);
+
+    fetch(`${API}/assign`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ player_id, team_id })
+    })
+    .then(res => res.json())
+    .then(() => {
+        alert("Player assigned!");
+        loadTeamAssignment();
+    });
+}
