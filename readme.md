@@ -126,8 +126,9 @@ Allows new users to register.
   "last_login": "YYYY-MM-DD HH:MM:SS",
   "avatar": "default avatar URL"
 }
+```
 
-3.4 Admin Profile Page — admin.html
+## 3.4 Admin Profile Page — admin.html
 This console allows registered administrators to view and manage their personal session details.
 
 Features:
@@ -138,7 +139,7 @@ Displays details like user name, email, account role, and last login time
 Provides a link to the password management module
 
 
-3.5 Change Password Page
+## 3.5 Change Password Page
 Enables verified users to rotate credentials securely.
 
 Workflow:
@@ -150,7 +151,7 @@ Backend retrieves the user data array, validates the old password using check_pa
 
 On verification, the JSON database saves the transaction and responds with {"success": true}
 
-3.6 Players Page (Auction Hub) — players.html
+## 3.6 Players Page (Auction Hub) — players.html
 The operational dashboard where admins view and manage the current auction pool.
 
 Features:
@@ -160,7 +161,7 @@ Integrates action toggles (Edit, Delete, Assign) next to each player profile car
 
 Strictly protected via frontend logic checking for authentication tokens/sessions
 
-3.7 Add / Edit / Delete Player
+## 3.7 Add / Edit / Delete Player
 Admins can perform full CRUD operations on players using interactive HTML modal forms on players.html.
 
 Operations:
@@ -170,7 +171,7 @@ Edit Player: Sends PUT /players/<id> with modified entries (e.g., updating base 
 
 Delete Player: Sends DELETE /players/<id> to cleanly erase player parameters from the database.
 
-3.8 Assign Player to Team
+## 3.8 Assign Player to Team
 This tool links a drafted player profile to an active IPL franchise.
 
 Workflow:
@@ -180,7 +181,7 @@ Selecting a franchise and saving fires a PUT /assign request payload to the back
 
 Backend matches the player ID, updates "team_id" inside the array, saves the updated database, and updates the UI state
 
-3.9 Teams Page — teams.html
+## 3.9 Teams Page — teams.html
 Displays the active list of franchises and their squads.
 
 Features:
