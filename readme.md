@@ -41,7 +41,7 @@ The project uses:
 - Database: Google Cloud Storage (JSON files)  
 - Hosting: Google Cloud Run  
 
-Live Frontend: https://ipl-auction-system-front-end-623648546215.europe-west1.run.app/index.html
+Live Frontend: https://ipl-auction-front-end-academic-121464328452.europe-west1.run.app/index.html
 ---
 
 # 2. System Architecture
