@@ -229,3 +229,14 @@ Secure Hashing Framework: Configured according to security guidelines in Werkzeu
 -https://stackoverflow.com/questions/64273301/python-flask-change-password-login-form
 -https://javascript.info/localstorage
 -https://stackoverflow.com/questions/14220321/how-to-return-the-response-from-an-asynchronous-call
+-https://hub.docker.com/_/nginx
+-https://flask.palletsprojects.com/en/stable/
+
+Generative AI Assistance
+Some part of this project were developed with assistance from Gemini (Google). Specifically, Gemini assisted with:
+
+Cloud Deployment: Setting up and deploying the frontend and backend of the application onto Google Cloud.
+Creating the backend Flask API routes to manage and update users, teams, and player data
+Fixing Errors: Troubleshooting account permission issues that blocked the database and build logs from working.
+Code Debugging: Helping trace the website code, specifically finding where the player image popup (openImageModal) is triggered.
+Drafting the readme.
