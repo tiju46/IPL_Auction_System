@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 CORS(app)
 
-BUCKET_NAME = "ipl-auction-data"   # <--  bucket name
+BUCKET_NAME = "ipl-auction-data_academic"   # <--  bucket name
 
 client = storage.Client()
 bucket = client.bucket(BUCKET_NAME)
